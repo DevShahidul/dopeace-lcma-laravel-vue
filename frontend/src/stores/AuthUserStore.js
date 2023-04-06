@@ -1,33 +1,78 @@
 import {defineStore} from "pinia";
+import axios from "axios";
 
 export const useAuthUserStore = defineStore('authUserStore', {
-    state: () => {
-       return {
-            firstName: '',
-            lastName: '',
-            userId:12
-       }
-    },
+    state: () => ({
+        authUser: null,
+        authErrors: [],
+        authStatus: null,
+    }),
     getters: {
-        fullName: (state) => `${state.firstName} ${state.lastName}`,
-        loggedIn: (state) => state.userId !== null,
+        user: (state) => state.authUser,
+        errors: (state) => state.authErrors,
+        status: (state) => state.authStatus
     },
-    /*actions: {
-        // no context as first argument, use `this` instead
-        async loadUser (id) {
-            if (this.userId !== null) throw new Error('Already logged in')
-            const res = await api.user.load(id)
-            this.updateUser(res)
+    actions: {
+        async getToken() {
+            await axios.get("/sanctum/csrf-cookie");
         },
-        // mutations can now become actions, instead of `state` as first argument use `this`
-        updateUser (payload) {
-            this.firstName = payload.firstName
-            this.lastName = payload.lastName
-            this.userId = payload.userId
+        async getUser() {
+            await this.getToken();
+            const data = await axios.get("/api/user");
+            this.authUser = data.data;
         },
-        // easily reset state using `$reset`
-        clearUser () {
-            this.$reset()
+
+        async setUser(data) {
+            this.authErrors = [];
+            await this.getToken();
+            try {
+                await axios.post("/login", {
+                    email: data.email,
+                    password: data.password,
+                });
+                localStorage.setItem('user', JSON.stringify(data));
+                await this.router.push("/");
+            } catch (error) {
+                if(error){
+                    this.authErrors = error.response.data.errors;
+                }
+            }
+        },
+
+        async handleLogin(data) {
+            await this.setUser(data);
+        },
+        async handleLogout(){
+            await axios.post("/logout");
+            this.authUser = null;
+            localStorage.removeItem('user');
+            await this.router.push("/login");
+        },
+        async handleForgotPassword(email){
+            this.authErrors = [];
+            await this.getToken();
+            try {
+                const response = await axios.post("/forgot-password", {
+                    email: email,
+                });
+                this.authStatus = response.data.status
+            } catch (error){
+                if(error) {
+                    this.authErrors = error.response.data.errors;
+                }
+            }
+        },
+        async handleResetPassword(resetData){
+            this.authErrors = [];
+            try {
+                const response = await axios.post("/reset-password", resetData);
+                this.authStatus = response.data.status;
+            } catch (error) {
+                if(error){
+                    this.authErrors = error.response.data.errors;
+                }
+            }
         }
-    }*/
+    }
+
 })

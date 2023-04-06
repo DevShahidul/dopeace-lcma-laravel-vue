@@ -8,9 +8,6 @@ const layout = computed(
     () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
 )
 
-console.log(layout);
-
-
 </script>
 
 <template>

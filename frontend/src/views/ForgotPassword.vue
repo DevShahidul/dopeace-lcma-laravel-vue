@@ -1,7 +1,7 @@
 <template>
     <h1 class="text-center text-2xl">{{ title }}</h1>
     <h5 v-if="leadText">{{leadText}}</h5>
-    <form class="mt-4" @submit.prevent="requestPassword">
+    <form class="mt-4" @submit.prevent="authUserStore.handleForgotPassword(email)">
         <label class="block">
             <span class="text-sm text-gray-700">Email</span>
             <input
@@ -10,6 +10,9 @@
                 v-model="email"
             />
         </label>
+        <div v-if="authUserStore.errors.email" class="flex">
+            <span class="text-red-400 text-sm mt-2">{{ authUserStore.errors.email[0] }}</span>
+        </div>
         <div class="mt-4">
             <router-link
                 class="block text-sm text-indigo-700 fontme hover:underline"
@@ -30,14 +33,12 @@
 
 <script setup>
 import {ref} from "vue";
-
+import {useAuthUserStore} from "@/stores";
+const authUserStore = useAuthUserStore();
 const title = ref("Request new password");
 const leadText = ref(null);
 const email = ref("");
-const requestPassword = () => {
-    const enteredEmail = email.value;
-    console.log('Entered Email: ', enteredEmail);
-}
+
 </script>
 
 <style scoped>

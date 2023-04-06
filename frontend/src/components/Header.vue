@@ -63,7 +63,7 @@
             </button>
             <div class="relative">
                 <div class="flex items-center space-x-4">
-                    <span>{{user?.name}}</span>
+                    <span>{{authStore.user?.name}}</span>
                     <button
                         @click="dropdownOpen = !dropdownOpen"
                         class="relative z-10 block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none"
@@ -105,7 +105,7 @@
                         >Products</a
                         >
                         <button
-                            @click="logOut"
+                            @click="authStore.handleLogout"
                             class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-sky-600 hover:text-white"
                         >Log out</button
                         >
@@ -117,23 +117,15 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import axios from "axios";
+import { ref, onMounted } from "vue";
 import {useSidebar} from "@/hooks/useSidebar";
+import {useAuthUserStore} from "@/stores";
 
-const user = ref();
+const authStore = useAuthUserStore();
+
 onMounted(async () => {
-    const data = await axios.get("/api/user");
-    user.value = data.data;
-})
-
-// import { mapState } from 'pinia';
-// import {useAuthUserStore} from "@/stores";
-// const userAuth = useAuthUserStore();
-//
-// const userToken = computed(() => {
-//     return {...mapState(userAuth, 'authToken')}
-// })
+   await authStore.getUser();
+});
 
 const dropdownOpen = ref(false);
 const { isOpen } = useSidebar();
