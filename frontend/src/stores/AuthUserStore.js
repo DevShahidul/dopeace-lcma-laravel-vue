@@ -6,6 +6,7 @@ export const useAuthUserStore = defineStore('authUserStore', {
         authUser: null,
         authErrors: [],
         authStatus: null,
+        loading: false,
     }),
     getters: {
         user: (state) => state.authUser,
@@ -24,16 +25,19 @@ export const useAuthUserStore = defineStore('authUserStore', {
 
         async setUser(data) {
             this.authErrors = [];
+            this.loading = true;
             await this.getToken();
             try {
                 await axios.post("/login", {
                     email: data.email,
                     password: data.password,
                 });
+                this.loading = false;
                 localStorage.setItem('user', JSON.stringify(data));
                 await this.router.push("/");
             } catch (error) {
                 if(error){
+                    this.loading = false;
                     this.authErrors = error.response.data.errors;
                 }
             }
@@ -50,25 +54,32 @@ export const useAuthUserStore = defineStore('authUserStore', {
         },
         async handleForgotPassword(email){
             this.authErrors = [];
+            this.loading = true;
             await this.getToken();
             try {
                 const response = await axios.post("/forgot-password", {
                     email: email,
                 });
+                this.loading = false;
                 this.authStatus = response.data.status
             } catch (error){
                 if(error) {
+                    this.loading = false;
                     this.authErrors = error.response.data.errors;
                 }
             }
         },
         async handleResetPassword(resetData){
             this.authErrors = [];
+            this.loading = true;
             try {
-                const response = await axios.post("/reset-password", resetData);
+               const response = await axios.post("/reset-password", resetData);
                 this.authStatus = response.data.status;
+                this.loading = false;
+                await this.router.push("/");
             } catch (error) {
                 if(error){
+                    this.loading = false;
                     this.authErrors = error.response.data.errors;
                 }
             }

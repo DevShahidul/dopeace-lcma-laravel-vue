@@ -1,7 +1,10 @@
 <template>
     <h1 class="text-center text-2xl">{{ title }}</h1>
     <h5 v-if="leadText">{{leadText}}</h5>
-    <form class="mt-4" @submit.prevent="authUserStore.handleForgotPassword(email)">
+    <div v-if="authUserStore.status" class="flex justify-center mt-4">
+        <span class="text-green-600 text-sm">{{ authUserStore.status }}</span>
+    </div>
+    <form v-else class="mt-4" @submit.prevent="handleForm(email)">
         <label class="block">
             <span class="text-sm text-gray-700">Email</span>
             <input
@@ -23,7 +26,8 @@
         <div class="mt-6">
             <button
                 type="submit"
-                class="w-full px-4 py-2 capitalize text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none hover:bg-indigo-500"
+                class="w-full rounded-md px-4 py-2 text-sm text-center text-white bg-primary-500 transition focus:outline-none hover:bg-primary-400 disabled:bg-gray-200 disabled:pointer-events-none"
+                :disabled="authUserStore.loading"
             >
                 Send request
             </button>
@@ -38,7 +42,10 @@ const authUserStore = useAuthUserStore();
 const title = ref("Request new password");
 const leadText = ref(null);
 const email = ref("");
-
+const handleForm = (data) => {
+    authUserStore.handleForgotPassword(data);
+    email.value = "";
+}
 </script>
 
 <style scoped>
