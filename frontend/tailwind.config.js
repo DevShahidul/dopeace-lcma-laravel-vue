@@ -13,8 +13,29 @@ module.exports = {
                 sans: ['Inter var', ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary : colors.sky
+                primary : {
+                    DEFAULT: '#14b3b2',
+                    50: '#F3F9FA',
+                    100: '#F2FEFF',
+                    200: '#E4F6F8'
+                },
+                secondary: '#546fb2'
             },
+            keyframes: {
+                'fade-in-down': {
+                    "from": {
+                        transform: "translateY(-0.75rem)",
+                        opacity: "0"
+                    },
+                    "to": {
+                        transform: "translateY(0rem)",
+                        opacity: "1"
+                    }
+                }
+            },
+            animation: {
+                'fade-in-down': "fade-in-down 0.2s ease-in-out both",
+            }
         },
     },
     plugins: [

@@ -5,9 +5,8 @@
 <script setup>
 import {ref, computed} from "vue";
 import {useAuthUserStore} from "@/stores";
-import AppLayout from "@/components/AppLayout.vue";
 const authStore = useAuthUserStore();
-const test = computed(() => authStore.userToken);
+const test = computed(() => authStore?.user?.name);
 
 </script>
 

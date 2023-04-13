@@ -2,10 +2,7 @@
 <h2>Students</h2>
 </template>
 
-<script>
-export default {
-    name: "Students"
-}
+<script setup>
 </script>
 
 <style scoped>

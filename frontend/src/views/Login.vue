@@ -12,7 +12,7 @@
                 required
             />
         </label>
-        <div v-if="authUserStore.errors.email" class="flex">
+        <div v-if="authUserStore?.errors?.email" class="flex">
             <span class="text-red-400 text-sm mt-2">{{ authUserStore.errors.email[0] }}</span>
         </div>
 
@@ -26,7 +26,7 @@
                 required
             />
         </label>
-        <div v-if="authUserStore.errors.password" class="flex">
+        <div v-if="authUserStore?.errors?.password" class="flex">
             <span class="text-red-400 text-sm mt-2">{{ authUserStore.errors.password[0] }}</span>
         </div>
 

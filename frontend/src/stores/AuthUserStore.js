@@ -22,7 +22,6 @@ export const useAuthUserStore = defineStore('authUserStore', {
             const data = await axios.get("/api/user");
             this.authUser = data.data;
         },
-
         async setUser(data) {
             this.authErrors = [];
             this.loading = true;
@@ -42,7 +41,6 @@ export const useAuthUserStore = defineStore('authUserStore', {
                 }
             }
         },
-
         async handleLogin(data) {
             await this.setUser(data);
         },
@@ -85,5 +83,4 @@ export const useAuthUserStore = defineStore('authUserStore', {
             }
         }
     }
-
 })
