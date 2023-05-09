@@ -4,7 +4,7 @@
         :class="[$route.name === path ? activeClass : inactiveClass]"
         :to="{name: path}"
     >
-        <component :is="icon"></component>
+        <component class="w-6 h-6" :is="icon"></component>
         <span class="mx-4">{{ title }}</span>
     </router-link>
 </template>

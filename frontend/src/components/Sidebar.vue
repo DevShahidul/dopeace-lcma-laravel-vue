@@ -20,11 +20,11 @@
             </div>
 
             <nav class="mt-10">
-                <SidebarLink title="Dashboard" :icon="IconSquares4" path="Dashboard" />
-                <SidebarLink title="Manage NGO" :icon="IconBuildingOffice" path="NGO" />
-                <SidebarLink title="Manage Students" :icon="IconAcademicCap" path="students" />
-                <SidebarLink title="Manage Staff" :icon="IconUserGroup" path="ManageStaff" />
-                <SidebarLink title="Settings" :icon="IconSetting" path="settings" />
+                <SidebarLink title="Dashboard" :icon="Squares2X2Icon" path="Dashboard" />
+                <SidebarLink title="Manage NGO" :icon="BuildingOfficeIcon" path="NGO" />
+                <SidebarLink title="Manage Students" :icon="AcademicCapIcon" path="students" />
+                <SidebarLink title="Manage Staff" :icon="UserGroupIcon" path="ManageStaff" />
+                <SidebarLink title="Settings" :icon="Cog6ToothIcon" path="settings" />
             </nav>
         </div>
     </div>
@@ -35,12 +35,9 @@ import {defineComponent, ref} from "vue";
 import {useSidebar} from "@/hooks/useSidebar";
 import MainLogo from "@/components/MainLogo.vue";
 import SidebarLink from "@/components/SidebarLinkItem.vue";
-import IconPi from "@/components/icons/IconPi.vue";
-import IconUserGroup from "@/components/icons/IconUserGroup.vue";
-import IconAcademicCap from "@/components/icons/IconAcademicCap.vue";
-import IconBuildingOffice from "@/components/icons/IconBuildingOffice.vue";
-import IconSetting from "@/components/icons/IconSetting.vue";
-import IconSquares4 from "@/components/icons/IconSquares4.vue";
+
+import { Squares2X2Icon, BuildingOfficeIcon, Cog6ToothIcon, UserGroupIcon, AcademicCapIcon } from '@heroicons/vue/24/outline'
+
 const { isOpen } = useSidebar();
 const activeClass = ref(
     "bg-gray-200 border-gray-700"

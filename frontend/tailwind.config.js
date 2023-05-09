@@ -19,7 +19,10 @@ module.exports = {
                     100: '#F2FEFF',
                     200: '#E4F6F8'
                 },
-                secondary: '#546fb2'
+                secondary: '#546fb2',
+                green: {
+                    DEFAULT: '#14b3b2',
+                },
             },
             keyframes: {
                 'fade-in-down': {

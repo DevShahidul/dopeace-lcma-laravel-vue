@@ -13,12 +13,12 @@
             <transition leave-active-class="transition ease-in duration-100" leave-from-class="opacity-100" leave-to-class="opacity-0">
                 <ListboxOptions class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                     <ListboxOption as="template" v-for="option in options" :key="option.id" :value="option" v-slot="{ active, selected }">
-                        <li :class="[active ? 'bg-indigo-600 text-white' : 'text-gray-900', 'relative cursor-default select-none py-2 pl-3 pr-9']">
+                        <li :class="[active ? 'bg-gray-100' : 'text-gray-900', 'relative cursor-default select-none py-2 pl-3 pr-9']">
                             <div class="flex items-center">
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'block truncate']">{{ option.value }}</span>
                             </div>
 
-                            <span v-if="selected" :class="[active ? 'text-white' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
+                            <span v-if="selected" :class="[active ? 'text-gray-900' : 'text-indigo-600', 'absolute inset-y-0 right-0 flex items-center pr-4']">
                 <CheckIcon class="h-5 w-5" aria-hidden="true" />
               </span>
                         </li>
@@ -32,7 +32,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Listbox, ListboxButton, ListboxLabel, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { CheckIcon, ChevronDownIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 
 const options = [
     {
@@ -46,6 +46,10 @@ const options = [
     {
         id: 3,
         value: 'Arlene Mccoy'
+    },
+    {
+        id: 4,
+        value: 'Arlene Mccoy new text will add here'
     },
 ]
 

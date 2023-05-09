@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('ngos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('address', 255);
             $table->string('city', 255);
             $table->string('district', 255);
